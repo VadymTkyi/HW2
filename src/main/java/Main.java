@@ -12,7 +12,7 @@ public class Main {
     public static int[] createRNGArray(int size){
         int[] array = new int[size];
         for( int i =0;i<size;i++) {
-            int random = (int) ((Math.random() * 100) + 1);//getting a random numbers
+            int random = (int) ((Math.random() * 100) + 1);//getting random number
             array[i] = random;
         }
         return array;
@@ -29,7 +29,10 @@ public class Main {
         }
         return array;
     }
-    public static void mergeSort(int[] array){
+    public static void mergeSort(int[] array,int left , int right){
+
+    }
+    public static void merge(){
 
     }
     public static int linearSearch(int[] array,int goal){
