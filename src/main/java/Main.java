@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
     // methods / functions declaration
     public static void printMenu(){
-        System.out.println("What action do you want to do with created array?\n1)Bubble sort \n2) Merge sort\n3) Linear Search \n4) Binary Search");
+        System.out.println("What action do you want to do with created array?\n1) Bubble sort \n2) Merge sort\n3) Linear Search \n4) Binary Search");
     }
     public static void printOriginalArray(int[] array){
         System.out.println("\nOriginal array\n"+Arrays.toString(array));
@@ -68,7 +68,7 @@ public class Main {
             tempIndex++;
         }
         while (right<=end){
-            temp[tempIndex] = array[left];
+            temp[tempIndex] = array[right];
             right++;
             tempIndex++;
         }
@@ -128,8 +128,8 @@ public class Main {
                 }
                 case 2 :{//merge sort
                     printOriginalArray(ranArray);
-                    mergeSortedArray = runMergeSort(ranArray);
-                    System.out.println("\nbubble sorted array\n"+Arrays.toString(mergeSortedArray));
+                    mergeSortedArray = runMergeSort(ranArray.clone());
+                    System.out.println("\nmerge sorted array\n"+Arrays.toString(mergeSortedArray));
                     isMergeSorted = true;
                     break;
                 }
