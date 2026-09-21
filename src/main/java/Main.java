@@ -41,15 +41,15 @@ public class Main {
         return -1;
     }
     private static int  binarySearch(int[] array,int goal,int start,int end){
-            if (end-start<0){
+            if (start>end){
                 return -1;
             }
-        int mid = (start-(end-1))/2;
-        if (mid == goal){
+        int mid = start+(end-(start))/2;
+        if (array[mid] == goal){
             return mid;
         }
-        if (mid>goal){
-            return binarySearch(array,goal,mid,end-1);
+        if (goal>array[mid]){
+            return binarySearch(array,goal,mid+1,end);
         }
         return binarySearch(array,goal,0,mid-1);
     }
@@ -127,6 +127,7 @@ public class Main {
                     break;
                 case 4 :{
                         if (isBubbleSorted){
+                            System.out.println("\nsorted array is " + Arrays.toString(bubbleSortedArray));
                             System.out.println("\n What number are you looking for?");
                             int goal = input.nextInt();
                             int result = binarySearch(bubbleSortedArray,goal);
