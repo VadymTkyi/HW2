@@ -9,7 +9,7 @@ public class Main {
     public static void printOriginalArray(int[] array){
         System.out.println("\nOriginal array\n"+Arrays.toString(array));
     }
-    public static int[] createRNGArray(int size){
+    public static int[] createRNGArray(int size){//creating data set
         int[] array = new int[size];
         for( int i =0;i<size;i++) {
             int random = (int) ((Math.random() * 100) + 1);//getting random number
@@ -17,7 +17,7 @@ public class Main {
         }
         return array;
     }
-    public static int[] bubbleSort(int[] array){
+    public static int[] bubbleSort(int[] array){//bubble sort
         for (int i = 0;i<array.length-1;i++){
             for (int j = i+1;j<array.length;j++){
                 if (array[i]>array[j]){
@@ -29,13 +29,54 @@ public class Main {
         }
         return array;
     }
-    public static void mergeSort(int[] array,int left , int right){
-
+    public static int[] runMergeSort(int[] array){//so user does not need to manually enter starting and ending value
+       return mergeSort(array,0,array.length-1);
     }
-    public static void merge(){
+    private static int[] mergeSort(int[] array,int start , int end){//mergeSort
+        if(start>=end){
+            return null;
+        }
+        int mid = start+(end-start)/2;
 
+        mergeSort(array,start,mid);
+        mergeSort(array,mid+1,end);
+
+        merge(array,start,mid,end);
+        return array;
     }
-    public static int linearSearch(int[] array,int goal){
+    private static void merge(int[] array, int start,int mid,int end){
+        int[] temp = new int[end-start+1];
+
+        int left = start;
+        int right = mid +1;
+        int  tempIndex = 0;
+
+        while (left <= mid && right <= end){
+            if (array[left]<=array[right]){
+                temp[tempIndex] = array[left];
+                left++;
+            }
+            else {
+                temp[tempIndex] = array[right];
+                right++;
+            }
+            tempIndex++;
+        }
+        while (left<=mid){
+            temp[tempIndex] = array[left];
+            left++;
+            tempIndex++;
+        }
+        while (right<=end){
+            temp[tempIndex] = array[left];
+            right++;
+            tempIndex++;
+        }
+        for (int i = 0; i < temp.length;i++){
+            array[start+i]= temp[i];
+        }
+    }
+    public static int linearSearch(int[] array,int goal){//linear search
         for (int i = 0;i<array.length;i++){
             if (array[i]==goal) {
                 return i;
@@ -56,7 +97,7 @@ public class Main {
         }
         return binarySearch(array,goal,0,mid-1);
     }
-    public static int binarySearch(int[] array, int goal){
+    public static int binarySearch(int[] array, int goal){//hardcoding some values that are necessary to run the binarySearch, and to not bother asking user for beginning and end each time
         return binarySearch(array,goal,0,array.length-1);
     }
     public static void main(String[] args){
@@ -78,40 +119,41 @@ public class Main {
             printMenu();
             int choice = input.nextInt();
             switch (choice){
-                case 1 : {
+                case 1 : {//Bubble sort
                     printOriginalArray(ranArray);
                     bubbleSortedArray = bubbleSort(ranArray.clone());
                     System.out.println("\nbubble sorted array\n"+Arrays.toString(bubbleSortedArray));
                     isBubbleSorted = true;
                     break;
                 }
-                case 2 :{
-
+                case 2 :{//merge sort
+                    printOriginalArray(ranArray);
+                    mergeSortedArray = runMergeSort(ranArray);
+                    System.out.println("\nbubble sorted array\n"+Arrays.toString(mergeSortedArray));
+                    isMergeSorted = true;
                     break;
                 }
-                case 3 : {
+                case 3 : {//linear search (with options)
                     printOriginalArray(ranArray);
-                    System.out.println("\nDo you want to search 1) original or 2) bubbleSorted array?");
+                    System.out.println("\nDo you want to search 1) original 2) bubbleSorted array or 3) mergeSorted array?");
                     choice = input.nextInt();
-                    switch (choice){
-                        case 1:{
+                    switch (choice) {
+                        case 1: {//linear search on unsorted array
                             System.out.println("\nEnter number that you want to search for");
                             int goal = input.nextInt();
-                            int result = linearSearch(ranArray,goal);
-                            if (result==-1){
+                            int result = linearSearch(ranArray, goal);
+                            if (result == -1) {
                                 System.out.println("\nThe number does not belong to the given array");
-                            }
-                            else {
-                                System.out.println("\nYour number is on position " +(result+1)+" or index "+result);
+                            } else {
+                                System.out.println("\nYour number is on position " + (result + 1) + " or index " + result);
                             }
                             break;
                         }
-                        case 2:{
-                            if (bubbleSortedArray==null){
+                        case 2: {//linear search on sorted (bubble)
+                            if (bubbleSortedArray == null) {
                                 System.out.println("\nPlease bubble sort array first");
                                 break;
-                            }
-                            else {
+                            } else {
                                 System.out.println("\nBubble sorted array " + Arrays.toString(bubbleSortedArray));
                                 System.out.println("\nEnter number that you want to search for");
                                 int goal = input.nextInt();
@@ -119,32 +161,79 @@ public class Main {
                                 if (result == -1) {
                                     System.out.println("\nThe number does not belong to the given array");
                                 } else {
-                                    System.out.println("\nYour number is on position " +(result+1)+" or index "+result);
+                                    System.out.println("\nYour number is on position " + (result + 1) + " or index " + result);
                                 }
 
                             }
+                            break;
+                        }
+                        case 3: {
+                            if (mergeSortedArray == null) {//linear search on sorted (merge)
+                                System.out.println("\nPlease merge sort array first");
+                                break;
+                            } else {
+                                System.out.println("\nMerge sorted array " + Arrays.toString(mergeSortedArray));
+                                System.out.println("\nEnter number that you want to search for");
+                                int goal = input.nextInt();
+                                int result = linearSearch(mergeSortedArray, goal);
+                                if (result == -1) {
+                                    System.out.println("\nThe number does not belong to the given array");
+                                } else {
+                                    System.out.println("\nYour number is on position " + (result + 1) + " or index " + result);
+                                }
+
+                            }
+                            break;
+                            }
+                        default:{
+                            System.out.println("\nWrong choice try again");
                             break;
                           }
                         }
                     }
                     break;
-                case 4 :{
-                        if (isBubbleSorted){
-                            System.out.println("\nsorted array is " + Arrays.toString(bubbleSortedArray));
-                            System.out.println("\n What number are you looking for?");
-                            int goal = input.nextInt();
-                            int result = binarySearch(bubbleSortedArray,goal);
-                            if (result == -1) {
-                                System.out.println("\nThe number does not belong to the given array");
-                            } else {
-                                System.out.println("\nYour number is on position " +(result+1)+" or index "+result);
+                case 4 :{//binary search with options
+                    System.out.println("\nDo you want to search 1) original 2) bubbleSorted array or 3) mergeSorted array?");
+                        choice = input.nextInt();
+                        switch (choice){
+                            case 1:{
+                                System.out.println("\nYou can't binary search unsorted array");
+                                break;
                             }
-
+                            case 2:{
+                                if (isBubbleSorted){
+                                    System.out.println("\nsorted array is " + Arrays.toString(bubbleSortedArray));
+                                    System.out.println("\n What number are you looking for?");
+                                    int goal = input.nextInt();
+                                    int result = binarySearch(bubbleSortedArray,goal);
+                                    if (result == -1) {
+                                        System.out.println("\nThe number does not belong to the given array");
+                                    } else {
+                                        System.out.println("\nYour number is on position " +(result+1)+" or index "+result);
+                                    }
+                                }
+                                else {
+                                    System.out.println("\nBubble sort array first");
+                                }
+                                break;
+                            }
+                            case 3:{
+                                if (isMergeSorted) {
+                                    System.out.println("\nsorted array is " + Arrays.toString(mergeSortedArray));
+                                    System.out.println("\n What number are you looking for?");
+                                    int goal = input.nextInt();
+                                    int result = binarySearch(mergeSortedArray, goal);
+                                    if (result == -1) {
+                                        System.out.println("\nThe number does not belong to the given array");
+                                    } else {
+                                        System.out.println("\nYour number is on position " + (result + 1) + " or index " + result);
+                                    }
+                                }else {
+                                    System.out.println("\nMerge Sort array first");
+                                }
+                                break;
+                            }
                         }
-                        else {
-                            System.out.println("\nsort array first");
-                        }
-                    break;
                 }
                 default:{
                     System.out.println("\nEnter valid choice");
@@ -152,6 +241,5 @@ public class Main {
                 }
             }
         }
-
     }
 }
