@@ -2,7 +2,8 @@ Homework 2 — Sorting and Searching Algorithms
 
 Name: Vadym Tutetskyi  
 Programming Language: Java  
-IDE / Editor: IntelliJ IDEA
+IDE / Editor: IntelliJ IDEA   
+(Update noticed that wrong acc making commits...apologies for that)
 
 Instead of hardcoding a data set for array manipulation decided to make user-friendly terminal based program that will demonstrate usage 
 of 
