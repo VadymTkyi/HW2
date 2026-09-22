@@ -19,7 +19,7 @@ public class Main {
     }
     public static int[] bubbleSort(int[] array){//bubble sort
         for (int i = 0;i<array.length-1;i++){
-            for (int j = 0;j<array.length-1;j++){
+            for (int j = 0;j<array.length-1-i;j++){
                 if (array[j]>array[j+1]){
                     int temp = array[j+1];
                     array[j+1] = array[j];
@@ -95,7 +95,7 @@ public class Main {
         if (goal>array[mid]){
             return binarySearch(array,goal,mid+1,end);
         }
-        return binarySearch(array,goal,0,mid-1);
+        return binarySearch(array,goal,start,mid-1);
     }
     public static int binarySearch(int[] array, int goal){//hardcoding some values that are necessary to run the binarySearch, and to not bother asking user for beginning and end each time
         return binarySearch(array,goal,0,array.length-1);
@@ -233,7 +233,9 @@ public class Main {
                                 }
                                 break;
                             }
+
                         }
+                        break;
                 }
                 default:{
                     System.out.println("\nEnter valid choice");
