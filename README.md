@@ -74,13 +74,13 @@ if data is not sorted, and it is relatively small data set I would use linear se
 but if the data set is quite big I would first sort it and use binary search in order to safe time  
 also if I know that I would search same data set more than a couple of times I might still sort it since single sort would then allow me to spend less time on each binary search  
 
-Question 12 Comparison Table 
+Question 12 Comparison Table        
 
-Algorithm           Purpose             Big O
-Bubble sort         sorting             O(n^2)
-Merge sort          sorting             O(n log n)
-Linear search       searching           O(n)
-Binary search       searching           O(log n)
+Algorithm           Purpose             Big O       
+Bubble sort         sorting             O(n^2)          
+Merge sort          sorting             O(n log n)      
+Linear search       searching           O(n)        
+Binary search       searching           O(log n)    
 
 
 
